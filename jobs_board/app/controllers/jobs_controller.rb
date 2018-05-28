@@ -1,7 +1,7 @@
 class JobsController < ApplicationController
 	before_action :find_job, only: [:show, :edit, :update, :destroy]
-	
-	def index 
+
+	def index
 		if params[:category].blank?
 			@jobs = Job.all.order("created_at DESC")
 		else
@@ -17,13 +17,14 @@ class JobsController < ApplicationController
 		@job = Job.new
 	end
 
-	def create 
+	def create
 		@job = Job.new(jobs_params)
 
 		if @job.save
 			redirect_to @job
 		else
 			render "New"
+		end
 	end
 
 	def edit
@@ -34,6 +35,7 @@ class JobsController < ApplicationController
 			redirect_to @job
 		else
 			render "Edit"
+		end
 	end
 
 	def destroy
@@ -45,7 +47,7 @@ class JobsController < ApplicationController
 
 	def jobs_params
 		params.require(:job).permit(:title, :description, :company, :url, :category_id)
-	end 
+	end
 
 	def find_job
 		@job = Job.find(params[:id])
